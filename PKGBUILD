@@ -1,8 +1,7 @@
 pkgname=mkodyseniso
 pkgver="1"
-pkgdesc="Patched mkarchiso to build OdysenISO bootable images"
 pkgrel=1
-pkgdesc="Mkodysen iso"
+pkgdesc="Patched mkarchiso to build OdysenISO bootable images"
 arch=("x86_64")
 license=("GPL3")
 depends=("archiso")
@@ -15,10 +14,10 @@ prepare() {
 }
 
 build() {
-    patch mkarchiso mkodyseniso.patch
+    patch mkarchiso ../mkodyseniso.patch
     mv mkarchiso mkodyseniso
 }
 
 package() {
-    install -D mkodyseniso /usr/bin/mkodyseniso
+    install -D mkodyseniso ${pkgdir}/usr/bin/mkodyseniso
 }
