@@ -1,6 +1,6 @@
 pkgname=mkodyseniso
 pkgver="1"
-pkgrel=1
+pkgrel="0"
 pkgdesc="Patched mkarchiso to build OdysenISO bootable images"
 arch=("x86_64")
 license=("GPL3")
