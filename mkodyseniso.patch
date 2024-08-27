@@ -1,8 +1,18 @@
-diff --git a/mkarchiso b/mkodyseniso
-index b582fbe..0bc755e 100755
---- a/mkarchiso
-+++ b/mkodyseniso
-@@ -356,6 +356,9 @@ _make_packages() {
+diff --git a/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/archiso b/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/mkodyseniso
+index b582fbe..7422260 100644
+--- a/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/archiso	
++++ b/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/mkodyseniso	
+@@ -14,6 +14,9 @@ export SOURCE_DATE_EPOCH
+ # Set application name from the script's file name
+ app_name="${0##*/}"
+ 
++# Set the liveuser name for running home-setups
++liveuser="liveuser"
++
+ # Define global variables. All of them will be overwritten later
+ pkg_list=()
+ bootstrap_pkg_list=()
+@@ -356,6 +359,9 @@ _make_packages() {
          env -u TMPDIR pacstrap -C "${work_dir}/${buildmode}.pacman.conf" -c -G -M -- "${pacstrap_dir}" "${buildmode_pkg_list[@]}" &>/dev/null
      else
          env -u TMPDIR pacstrap -C "${work_dir}/${buildmode}.pacman.conf" -c -G -M -- "${pacstrap_dir}" "${buildmode_pkg_list[@]}"
@@ -12,3 +22,15 @@ index b582fbe..0bc755e 100755
      fi
  
      if [[ -v cert_list[0] ]]; then
+@@ -407,6 +413,11 @@ _make_customize_airootfs() {
+         chmod -f -- +x "${pacstrap_dir}/root/customize_airootfs.sh"
+         # Unset TMPDIR to work around https://bugs.archlinux.org/task/70580
+         eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/customize_airootfs.sh"
++
++        # Run scripts as liveuser
++        eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" chmod +x /etc/rootfs_customizer/home_customizer.sh
++        eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" sudo -u "${liveuser}" /etc/rootfs_customizer/home_customizer.sh
++
+         rm -- "${pacstrap_dir}/root/customize_airootfs.sh"
+         _msg_info "Done! customize_airootfs.sh run successfully."
+     fi
