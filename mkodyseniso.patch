@@ -1,7 +1,7 @@
-diff --git a/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/archiso b/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/mkodyseniso
+diff --git a/mkarchiso b/mkodyseniso
 index b582fbe..7422260 100644
---- a/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/archiso	
-+++ b/Documents/codeProjects/ODYSEN REPOSITORIES/mkodyseniso/mkodyseniso	
+--- a/mkarchiso	
++++ b/mkodyseniso	
 @@ -14,6 +14,9 @@ export SOURCE_DATE_EPOCH
  # Set application name from the script's file name
  app_name="${0##*/}"
