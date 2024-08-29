@@ -15,9 +15,9 @@ prepare() {
 
 build() {
     patch mkarchiso ../mkodyseniso.patch
-    mv mkarchiso mkodyseniso
+    mv mkarchiso mkodyseniso-hc
 }
 
 package() {
-    install -D mkodyseniso ${pkgdir}/usr/bin/mkodyseniso
+    install -D mkodyseniso-hc "${pkgdir}/usr/bin/mkodyseniso-hc"
 }
