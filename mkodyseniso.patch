@@ -1,7 +1,7 @@
-diff --git a/mkarchiso b/mkodyseniso
-index b582fbe..7422260 100644
---- a/mkarchiso	
-+++ b/mkodyseniso	
+diff --git a/usr/bin/mkarchiso b/usr/bin/mkodyseniso-hc
+index b582fbe..415b9c7 100755
+--- a/usr/bin/mkarchiso
++++ b/usr/bin/mkodyseniso-hc
 @@ -14,6 +14,9 @@ export SOURCE_DATE_EPOCH
  # Set application name from the script's file name
  app_name="${0##*/}"
@@ -12,7 +12,7 @@ index b582fbe..7422260 100644
  # Define global variables. All of them will be overwritten later
  pkg_list=()
  bootstrap_pkg_list=()
-@@ -356,6 +359,9 @@ _make_packages() {
+@@ -356,6 +357,9 @@ _make_packages() {
          env -u TMPDIR pacstrap -C "${work_dir}/${buildmode}.pacman.conf" -c -G -M -- "${pacstrap_dir}" "${buildmode_pkg_list[@]}" &>/dev/null
      else
          env -u TMPDIR pacstrap -C "${work_dir}/${buildmode}.pacman.conf" -c -G -M -- "${pacstrap_dir}" "${buildmode_pkg_list[@]}"
@@ -22,11 +22,18 @@ index b582fbe..7422260 100644
      fi
  
      if [[ -v cert_list[0] ]]; then
-@@ -407,6 +413,11 @@ _make_customize_airootfs() {
-         chmod -f -- +x "${pacstrap_dir}/root/customize_airootfs.sh"
-         # Unset TMPDIR to work around https://bugs.archlinux.org/task/70580
-         eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/customize_airootfs.sh"
-+
+@@ -401,12 +405,12 @@ _make_customize_airootfs() {
+         _msg_info "Done!"
+     fi
+ 
+-    if [[ -e "${pacstrap_dir}/root/customize_airootfs.sh" ]]; then
+-        _msg_info "Running customize_airootfs.sh in '${pacstrap_dir}' chroot..."
+-        _msg_warning "customize_airootfs.sh is deprecated! Support for it will be removed in a future archiso version."
+-        chmod -f -- +x "${pacstrap_dir}/root/customize_airootfs.sh"
+-        # Unset TMPDIR to work around https://bugs.archlinux.org/task/70580
+-        eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/customize_airootfs.sh"
++    if [[ -e "${profile}/airootfs/etc/rootfs_customizer/home_customizer.sh" ]]; then
++        _msg_info "Running home_customizer.sh in '${pacstrap_dir}' chroot..."
 +        # Run scripts as liveuser
 +        eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" chmod +x /etc/rootfs_customizer/home_customizer.sh
 +        eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" sudo -u "${liveuser}" /etc/rootfs_customizer/home_customizer.sh
