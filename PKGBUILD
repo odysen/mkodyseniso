@@ -1,5 +1,5 @@
 pkgname=mkodyseniso
-pkgver="1"
+pkgver="2"
 pkgrel="0"
 pkgdesc="Patched mkarchiso to build OdysenISO bootable images"
 arch=("x86_64")
@@ -19,5 +19,5 @@ build() {
 }
 
 package() {
-    install -D mkodyseniso ${pkgdir}/usr/bin/mkodyseniso
+    install -D mkodyseniso "${pkgdir}/usr/bin/mkodyseniso"
 }
