@@ -1,7 +1,7 @@
-pkgname=mkodyseniso-hc
-pkgver="1"
-pkgrel="2"
-pkgdesc="Patched mkarchiso to build OdysenISO bootable images (home customizer script included)"
+pkgname=mkodyseniso
+pkgver="2"
+pkgrel="0"
+pkgdesc="Patched mkarchiso to build OdysenISO bootable images"
 arch=("x86_64")
 license=("GPL3")
 depends=("archiso")
@@ -15,9 +15,9 @@ prepare() {
 
 build() {
     patch mkarchiso ../mkodyseniso.patch
-    mv mkarchiso mkodyseniso-hc
+    mv mkarchiso mkodyseniso
 }
 
 package() {
-    install -D mkodyseniso-hc "${pkgdir}/usr/bin/mkodyseniso-hc"
+    install -D mkodyseniso "${pkgdir}/usr/bin/mkodyseniso"
 }
